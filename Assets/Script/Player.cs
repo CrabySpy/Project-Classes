@@ -42,6 +42,7 @@ public class Player : MonoBehaviour
     {
         PlayerWalk();
         PlayerJump();
+        AnimatePlayer();
         Debug.Log(_movementX);
     }
 
@@ -58,6 +59,21 @@ public class Player : MonoBehaviour
             _myBody.AddForce(new Vector2(0f, _jumpForce), ForceMode2D.Impulse);
             Debug.Log("jumping");
         }        
+    }
+
+    public void AnimatePlayer(){
+        if (_movementX > 0) {
+            _anim.SetBool(WALK_ANIMATION, true);
+            _sr.flipX = false;
+        }
+        else if (_movementX < 0) {
+            _anim.SetBool(WALK_ANIMATION, true);
+            _sr.flipX = true;
+        }
+        else {
+            _anim.SetBool(WALK_ANIMATION, false);
+        }
+        
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
