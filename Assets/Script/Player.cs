@@ -21,6 +21,8 @@ public class Player : MonoBehaviour
 
     private string WALK_ANIMATION = "Walk";
 
+    private string FLAG_TAG = "Flag";
+
     private string GROUND_TAG = "Ground";
 
     private void Awake()
@@ -43,7 +45,7 @@ public class Player : MonoBehaviour
         PlayerWalk();
         PlayerJump();
         AnimatePlayer();
-        Debug.Log(_movementX);
+        // Debug.Log(_movementX);
     }
 
     public void PlayerWalk() {
@@ -76,11 +78,22 @@ public class Player : MonoBehaviour
         
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if(collision.gameObject.CompareTag(GROUND_TAG)) {
+    private void OnCollisionEnter2D(Collision2D collision) {
+        if (collision.gameObject.CompareTag(GROUND_TAG))
+        {
             isGrounded = true;
+        }
+
+        if (collision.gameObject.CompareTag(FLAG_TAG))
+        {
+            WinGame();
         }
     }
 
+    private void WinGame() {
+        Debug.Log("You Win!");
+        Time.timeScale = 0f; 
+        
+    }
 }
+
