@@ -3392,8 +3392,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _moveForce: 3
   _jumpForce: 10
-  _dashSpeed: 20
-  _dashDuration: 0.2
+  _dashSpeed: 10
+  _dashDuration: 0.1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

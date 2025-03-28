@@ -6,30 +6,43 @@ public class Dasher : Player
     private float _dashSpeed = 10f;
 
     [SerializeField]
-    private float _dashDuration = 0.2f;
+    private float _dashDuration = 0.1f;
 
-    private bool isDashing = false;
+    private bool _isDashing;
+    private float _dashTimer;
 
     protected override void Update()
     {
         base.Update();
 
-        if (Input.GetKeyDown(KeyCode.LeftShift) && !isDashing)
+        if (_isDashing)
         {
-            StartCoroutine(PlayerDash());
+            _dashTimer -= Time.deltaTime;
+
+            if (_dashTimer <= 0f)
+            {
+                StopDash();
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.LeftShift) && !_isDashing)
+        {
+            StartDash();
         }
     }
 
-    private System.Collections.IEnumerator PlayerDash()
+    private void StartDash()
     {
-        isDashing = true;
-        float originalSpeed = MoveForce;
+        _isDashing = true;
+        _dashTimer = _dashDuration;
         MoveForce = _dashSpeed;
+        Debug.Log("Dashing...");
+    }
 
-        yield return new WaitForSeconds(_dashDuration);
-
-        MoveForce = originalSpeed;
-        isDashing = false;
+    private void StopDash()
+    {
+        _isDashing = false;
+        MoveForce = 3f; 
+        Debug.Log("Dash Ended.");
     }
 }
-
