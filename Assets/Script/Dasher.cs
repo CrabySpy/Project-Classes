@@ -3,29 +3,29 @@ using UnityEngine;
 public class Dasher : Player
 {
     [SerializeField]
-    private float _dashSpeed = 10f;
+    private float dashSpeed = 10f;
 
     [SerializeField]
-    private float _dashDuration = 0.1f;
+    private float dashDuration = 0.1f;
 
-    private bool _isDashing;
-    private float _dashTimer;
+    private bool isDashing;
+    private float dashTimer;
 
     protected override void Update()
     {
         base.Update();
 
-        if (_isDashing)
+        if (isDashing)
         {
-            _dashTimer -= Time.deltaTime;
+            dashTimer -= Time.deltaTime;
 
-            if (_dashTimer <= 0f)
+            if (dashTimer <= 0f)
             {
                 StopDash();
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.LeftShift) && !_isDashing)
+        if (Input.GetKeyDown(KeyCode.LeftShift) && !isDashing)
         {
             StartDash();
         }
@@ -33,15 +33,15 @@ public class Dasher : Player
 
     private void StartDash()
     {
-        _isDashing = true;
-        _dashTimer = _dashDuration;
-        MoveForce = _dashSpeed;
+        isDashing = true;
+        dashTimer = dashDuration;
+        MoveForce = dashSpeed;
         Debug.Log("Dashing...");
     }
 
     private void StopDash()
     {
-        _isDashing = false;
+        isDashing = false;
         MoveForce = 3f; 
         Debug.Log("Dash Ended.");
     }

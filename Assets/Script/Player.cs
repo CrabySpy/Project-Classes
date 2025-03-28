@@ -3,49 +3,49 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     [SerializeField]
-    private float _moveForce = 3f;
+    private float moveForce = 3f;
 
     public float MoveForce
     {
-        get {return _moveForce;}
-        set {_moveForce = value;}
+        get {return moveForce;}
+        set {moveForce = value;}
     }
 
     [SerializeField]
-    private float _jumpForce = 10f;
+    private float jumpForce = 10f;
 
     public float JumpForce
     {
-        get {return _jumpForce;}
+        get {return jumpForce;}
         set {JumpForce = value;}
     }
 
-    private float _movementX;
+    private float movementX;
 
     public float MovementX
     {
-        get {return _movementX;}
-        set {_movementX = value;}
+        get {return movementX;}
+        set {movementX = value;}
     }
 
-    private bool _isGrounded;
+    private bool isGrounded;
 
     public bool IsGrounded
     {
-        get {return _isGrounded;}
-        set {_isGrounded = value;}
+        get {return isGrounded;}
+        set {isGrounded = value;}
     }
 
-    private Rigidbody2D _myBody;
+    private Rigidbody2D myBody;
     public Rigidbody2D MyBody
     {
-        get {return _myBody;}
-        set {_myBody = value;}
+        get {return myBody;}
+        set {myBody = value;}
     }
 
-    private SpriteRenderer _sr;
+    private SpriteRenderer sr;
 
-    private Animator _anim;
+    private Animator anim;
 
     private string WALK_ANIMATION = "Walk";
 
@@ -56,8 +56,8 @@ public class Player : MonoBehaviour
     private void Awake()
     {
         MyBody = GetComponent<Rigidbody2D>();
-        _anim = GetComponent<Animator>();
-        _sr = GetComponent<SpriteRenderer>();
+        anim = GetComponent<Animator>();
+        sr = GetComponent<SpriteRenderer>();
     }
 
 
@@ -78,7 +78,7 @@ public class Player : MonoBehaviour
     public void PlayerWalk()
     {
         MovementX = Input.GetAxisRaw("Horizontal");
-        transform.position += new Vector3(MovementX, 0f, 0f) * Time.deltaTime * _moveForce;
+        transform.position += new Vector3(MovementX, 0f, 0f) * Time.deltaTime * moveForce;
     }
 
     public virtual void PlayerJump()
@@ -86,7 +86,7 @@ public class Player : MonoBehaviour
         if ((Input.GetButtonDown("Jump") || Input.GetButtonDown("Vertical")) && IsGrounded)
         {
             IsGrounded = false;
-            MyBody.AddForce(new Vector2(0f, _jumpForce), ForceMode2D.Impulse);
+            MyBody.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
             Debug.Log("jumping");
         }
     }
@@ -95,17 +95,17 @@ public class Player : MonoBehaviour
     {
         if (MovementX > 0)
         {
-            _anim.SetBool(WALK_ANIMATION, true);
-            _sr.flipX = false;
+            anim.SetBool(WALK_ANIMATION, true);
+            sr.flipX = false;
         }
         else if (MovementX < 0)
         {
-            _anim.SetBool(WALK_ANIMATION, true);
-            _sr.flipX = true;
+            anim.SetBool(WALK_ANIMATION, true);
+            sr.flipX = true;
         }
         else
         {
-            _anim.SetBool(WALK_ANIMATION, false);
+            anim.SetBool(WALK_ANIMATION, false);
         }
     }
 

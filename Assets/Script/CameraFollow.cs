@@ -2,23 +2,35 @@ using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
-
     private Transform player;
     private Vector3 tempPos;
 
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        player = GameObject.FindWithTag("Player").transform; 
+        FindPlayer();
+    }
+    private void LateUpdate()
+    {
+
+        if (player != null) {
+            tempPos = transform.position;
+            tempPos.x = player.position.x;
+            transform.position = tempPos;
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    // ✅ Try to find the player by tag
+    private void FindPlayer()
     {
-        tempPos = transform.position;
-        tempPos.x = player.position.x;
+        GameObject playerObj = GameObject.FindWithTag("Player");
+        if (playerObj != null)
+        {
+            player = playerObj.transform;
+        }
+    }
 
-        transform.position = tempPos;
+    public void SetPlayer(Transform playerTransform) 
+    {
+        player = playerTransform;
     }
 }
