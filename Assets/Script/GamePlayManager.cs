@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GamePlayManager : MonoBehaviour
 {
@@ -11,14 +12,30 @@ public class GamePlayManager : MonoBehaviour
     {
         int selectedCharIndex = PlayerPrefs.GetInt(SELECTED_CHARACTER_INDEX, 0);
 
-        // ✅ Instantiate the selected character
+    
         GameObject playerObj = Instantiate(Characters[selectedCharIndex], respawnPoint.position, Quaternion.identity);
 
-        // ✅ Assign the player to the camera after instantiation
+        
         CameraFollow camFollow = Camera.main.GetComponent<CameraFollow>();
         if (camFollow != null && playerObj != null)
         {
             camFollow.SetPlayer(playerObj.transform);
         }
+
+
+    }
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {  
+            BackToMainMenu();
+        }
+    }
+
+    public void BackToMainMenu()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("MainMenu");
     }
 }
